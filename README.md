@@ -37,18 +37,23 @@ docker exec -ti postgres psql exampledb -U docker
 
 Cria tabelas
 ```
-CREATE TABLE debezium_signal (id VARCHAR(42) PRIMARY KEY, type VARCHAR(32) NOT NULL, data VARCHAR(2048) NULL);
-CREATE TABLE CUSTOMER (ID INT PRIMARY KEY, NAME VARCHAR);
-ALTER TABLE CUSTOMER REPLICA IDENTITY FULL;
+create table CUSTOMER (
+  ID SERIAL primary key,
+  FIRST_NAME VARCHAR(100) not null,
+  LAST_NAME VARCHAR(100) null
+);
+alter table CUSTOMER REPLICA IDENTITY FULL;
 ```
 
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @debezium.json
 
+http://localhost:8083/connectors?expand=info&expand=status
+
 Executa comandos sql que irão gerar os eventos no tópico 
 ```
-INSERT INTO PUBLIC.CUSTOMER (ID, NAME) VALUES(1, 'RICH CUSTOMER');
-INSERT INTO PUBLIC.CUSTOMER (ID, NAME) VALUES(2, 'POOR CUSTOMER');
-UPDATE PUBLIC.CUSTOMER SET NAME = 'RICHEST CUSTOMER' WHERE ID=2;
+INSERT INTO PUBLIC.CUSTOMER (FIRST_NAME) VALUES('JOHN');
+INSERT INTO PUBLIC.CUSTOMER (FIRST_NAME) VALUES('JANE');
+UPDATE PUBLIC.CUSTOMER SET LAST_NAME = 'DOE' WHERE ID IN (1,2);
 ```
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. 

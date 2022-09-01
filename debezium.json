@@ -11,6 +11,21 @@
     "database.dbname": "exampledb",
     "database.server.name": "postgres",
     "table.include.list": "public.customer",
-    "signal.data.collection": "public.debezium_signal"
+    "offset.flush.interval.ms": "15000",
+    "offset.flush.timeout.ms": "5000",
+    "poll.interval.ms": "1000",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "tombstones.on.delete": "false",
+    "transforms": "Reroute, unwrap",
+    "transforms.Reroute.type": "io.debezium.transforms.ByLogicalTableRouter",
+    "transforms.Reroute.topic.regex": "(.*)public(.*)",
+    "transforms.Reroute.topic.replacement": "legacy_rds$2",
+    "transforms.Reroute.key.enforce.uniqueness": "false",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.delete.handling.mode": "rewrite",
+    "transforms.unwrap.add.fields": "op,table"
   }
 }
