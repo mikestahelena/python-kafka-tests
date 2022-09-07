@@ -26,6 +26,6 @@
     "transforms.Reroute.key.enforce.uniqueness": "false",
     "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
     "transforms.unwrap.delete.handling.mode": "rewrite",
-    "transforms.unwrap.add.fields": "op,table"
+    "transforms.unwrap.add.fields": "op"
   }
 }

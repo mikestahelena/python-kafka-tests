@@ -45,7 +45,11 @@ create table CUSTOMER (
 alter table CUSTOMER REPLICA IDENTITY FULL;
 ```
 
-curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @debezium.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @./connectors/debezium.json
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @./connectors/kibana.json
+
+curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @kibana_connector.json 
 
 http://localhost:8083/connectors?expand=info&expand=status
 

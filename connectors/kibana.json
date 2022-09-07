@@ -1,0 +1,15 @@
+{
+  "name": "customer-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "connection.url": "http://elasticsearch:9200",
+    "tasks.max": "1",
+    "topics": "legacy_rds.customer",
+    "type.name": "_doc",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.ignore": "true",
+    "schema.ignore": "true",
+    "value.converter.schemas.enable": "false"
+  }
+}
